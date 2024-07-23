@@ -163,9 +163,15 @@ code {
 
 .product-price {
   font-size: 1.2rem;
-  color: #333;
+  color: #f81818;
+  text-decoration: line-through; /* Add strikethrough */
 }
 
+.product-discounted-price {
+  font-size: 1.5rem; /* Larger font for visibility */
+  color: #000000; /* Highlighted color for the discounted price */
+  margin-top: 0.5rem;
+}
 .product-review {
   color: #ff9800;
 }
