@@ -11,6 +11,8 @@ import peechbottle from '../assets/peechbottle.png';
 import Slider from 'react-slick';
 import Typing from 'react-typing-effect';
 import { IoSearchSharp } from "react-icons/io5";
+import { TbBackground } from 'react-icons/tb';
+import { GrEbay } from 'react-icons/gr';
 
 const deodorantImages = [pic1, Bombottle, Bossbottle, creed, dvdbottle, lemonbottle, peechbottle];
 
@@ -26,12 +28,12 @@ function UserDashboard() {
   };
 
   const products = [
-    { name: 'Bomber', originalPrice: '350 Rs', discountedPrice: '300 Rs', review: '★★★★☆', description: 'A great deodorant.', image: Bombottle },
-    { name: 'Boss Deo', originalPrice: '150 Rs', discountedPrice: '120 Rs', review: '★★★☆☆', description: 'Effective and affordable.', image: Bossbottle },
-    { name: 'Creeders', originalPrice: '240 Rs', discountedPrice: '200 Rs', review: '★★★★★', description: 'High-quality deodorant.', image: creed },
-    { name: 'DVD Deo', originalPrice: '240 Rs', discountedPrice: '220 Rs', review: '★★★★☆', description: 'Long-lasting fragrance.', image: dvdbottle },
-    { name: 'lemonade', originalPrice: '240 Rs', discountedPrice: '210 Rs', review: '★★★☆☆', description: 'Great value for money.', image: lemonbottle },
-    { name: 'Peach Gala', originalPrice: '240 Rs', discountedPrice: '220 Rs', review: '★★★★★', description: 'Excellent deodorant.', image: peechbottle },
+    { name: 'Bomb Shell', originalPrice: '350 Rs', discountedPrice: '300 Rs', review: '★★★★☆', description: 'A great deodorant.', image: Bombottle },
+    { name: 'Boss', originalPrice: '150 Rs', discountedPrice: '120 Rs', review: '★★★☆☆', description: 'Effective and affordable.', image: Bossbottle },
+    { name: 'Aventis Creed', originalPrice: '240 Rs', discountedPrice: '200 Rs', review: '★★★★★', description: 'High-quality deodorant.', image: creed },
+    { name: 'DVD', originalPrice: '240 Rs', discountedPrice: '220 Rs', review: '★★★★☆', description: 'Long-lasting fragrance.', image: dvdbottle },
+    { name: 'Lovely Lemon', originalPrice: '240 Rs', discountedPrice: '210 Rs', review: '★★★☆☆', description: 'Great value for money.', image: lemonbottle },
+    { name: 'Fresh Peaches', originalPrice: '240 Rs', discountedPrice: '220 Rs', review: '★★★★★', description: 'Excellent deodorant.', image: peechbottle, stock: 'Out of Stock'},
   ];
 
   return (
@@ -54,7 +56,7 @@ function UserDashboard() {
 
       <main className="main-content">
         <section className="welcome-section">
-          <h1><Typing text={['Da-chi Cosmetics']} speed={100} typingDelay={500} /></h1>
+          <h1><Typing text={['Clean living, Pure confidence']} speed={40} typingDelay={500} /></h1>
           <hr />
         </section>
 
@@ -85,7 +87,8 @@ function UserDashboard() {
                   </div>
                   <p className="product-review">{product.review}</p>
                   <p className="product-description">{product.description}</p>
-                  <button className="add-to-cart">Add to Cart</button>
+                  {product.stock && <p className="out-of-stock">{product.stock}</p>}
+                  <button className="add-to-cart" disabled={product.stock === 'Out of Stock'}>Add to Cart</button>
                 </div>
               </div>
             ))}
@@ -94,7 +97,7 @@ function UserDashboard() {
       </main>
 
       <footer className="footer">
-        <p>Contact: +92-3130494909 <span>Email: afanabhai@gmail.com</span></p>
+        <p>Contact: +92-3130494909 </p>
         <p>&copy; 2024 Da-chi. All rights reserved</p>
       </footer>
     </>
@@ -102,4 +105,3 @@ function UserDashboard() {
 }
 
 export default UserDashboard;
-
