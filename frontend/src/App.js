@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserDashboard from './components/userDash';
 
+import './index.css'; 
+
 function App() {
   return (
     <Router>
