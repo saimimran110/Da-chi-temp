@@ -1,0 +1,231 @@
+'use client'
+import '../index.css'; // Adjust the path if necessary
+
+import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import { TypeAnimation } from 'react-type-animation'
+import { ChevronLeft, ChevronRight, ShoppingCart, Droplet, Star } from 'lucide-react'
+
+const products = [
+  { id: 1, name: 'Lavender Mist', image: '/placeholder.svg?height=400&width=600', price: '$19.99' },
+  { id: 2, name: 'Citrus Breeze', image: '/placeholder.svg?height=400&width=600', price: '$18.99' },
+  { id: 3, name: 'Ocean Fresh', image: '/placeholder.svg?height=400&width=600', price: '$20.99' },
+  { id: 4, name: 'Vanilla Silk', image: '/placeholder.svg?height=400&width=600', price: '$21.99' },
+  { id: 5, name: 'Bamboo Zen', image: '/placeholder.svg?height=400&width=600', price: '$22.99' },
+  { id: 6, name: 'Rose Petal', image: '/placeholder.svg?height=400&width=600', price: '$19.99' },
+  { id: 7, name: 'Midnight Musk', image: '/placeholder.svg?height=400&width=600', price: '$23.99' },
+]
+
+const bestSellers = [
+  { id: 1, name: 'Lavender Mist', image: '/placeholder.svg?height=400&width=600', price: '$19.99', rating: 4.8 },
+  { id: 2, name: 'Citrus Breeze', image: '/placeholder.svg?height=400&width=600', price: '$18.99', rating: 4.7 },
+  { id: 3, name: 'Ocean Fresh', image: '/placeholder.svg?height=400&width=600', price: '$20.99', rating: 4.9 },
+]
+
+const fragrances = [
+  { name: 'Lavender', color: '#8A2BE2' },
+  { name: 'Citrus', color: '#FFA500' },
+  { name: 'Ocean', color: '#1E90FF' },
+  { name: 'Vanilla', color: '#F4A460' },
+  { name: 'Bamboo', color: '#228B22' },
+  { name: 'Rose', color: '#FF69B4' },
+  { name: 'Musk', color: '#8B4513' },
+]
+
+export default function UserDashboard() {
+  const [currentProduct, setCurrentProduct] = useState(0)
+  const [cart, setCart] = useState([])
+  const [selectedFragrances, setSelectedFragrances] = useState([])
+  const fragranceLabRef = useRef(null)
+  const bestSellersRef = useRef(null)
+  const { scrollYProgress } = useScroll()
+
+  const bestSellersOpacity = useTransform(scrollYProgress, [0.1, 0.2], [0, 1])
+  const bestSellersY = useTransform(scrollYProgress, [0.1, 0.2], [100, 0])
+  
+  const labScale = useTransform(scrollYProgress, [0.2, 0.3], [0.8, 1])
+  const labOpacity = useTransform(scrollYProgress, [0.2, 0.3], [0, 1])
+  const rotateDroplets = useTransform(scrollYProgress, [0.3, 0.4], [0, 360])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentProduct((prev) => (prev + 1) % products.length)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const addToCart = (product) => {
+    setCart([...cart, product])
+  }
+
+  const toggleFragrance = (fragrance) => {
+    setSelectedFragrances(prev => 
+      prev.includes(fragrance)
+        ? prev.filter(f => f !== fragrance)
+        : [...prev, fragrance].slice(0, 3)
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-black text-white">
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;600&display=swap');
+        
+        h1, h2, h3, h4, h5, h6 {
+          font-family: 'Playfair Display', serif;
+        }
+        
+        body {
+          font-family: 'Montserrat', sans-serif;
+        }
+      `}</style>
+
+      <nav className="p-4">
+        <motion.ul 
+          className="flex justify-center space-x-8"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {['Home', 'Products', 'Fragrance Lab', 'About', 'Contact'].map((item) => (
+            <motion.li 
+              key={item}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <a href="#" className="text-lg font-semibold hover:text-white transition-colors">
+                {item}
+              </a>
+            </motion.li>
+          ))}
+        </motion.ul>
+      </nav>
+
+      <header className="text-center py-20">
+        <motion.h1 
+          className="text-6xl font-bold mb-4"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+        >
+          Da-chi Cosmetics
+        </motion.h1>
+        <TypeAnimation
+          sequence={[
+            'Elevate Your Freshness',
+            1000,
+            'Premium Deodorants for the Discerning',
+            1000,
+          ]}
+          wrapper="h2"
+          speed={50}
+          className="text-2xl text-white"
+          repeat={Infinity}
+        />
+      </header>
+
+      <section className="relative overflow-hidden h-[400px] mb-20">
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={currentProduct}
+            src={products[currentProduct].image}
+            alt={products[currentProduct].name}
+            className="w-full h-full object-cover"
+            initial={{ opacity: 0, x: 300 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -300 }}
+            transition={{ type: 'tween', duration: 0.5 }}
+          />
+        </AnimatePresence>
+        <div className="absolute inset-0 flex items-center justify-between p-4">
+          <button 
+            onClick={() => setCurrentProduct((prev) => (prev - 1 + products.length) % products.length)}
+            className="bg-black bg-opacity-50 p-2 rounded-full"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button 
+            onClick={() => setCurrentProduct((prev) => (prev + 1) % products.length)}
+            className="bg-black bg-opacity-50 p-2 rounded-full"
+          >
+            <ChevronRight size={24} />
+          </button>
+        </div>
+      </section>
+
+      <motion.section
+        ref={bestSellersRef}
+        className="container mx-auto px-4 mb-20"
+        style={{ opacity: bestSellersOpacity, y: bestSellersY }}
+      >
+        <h2 className="text-4xl font-bold mb-10 text-center">Best Selling Products</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {bestSellers.map((product) => (
+            <motion.div 
+              key={product.id}
+              className="bg-gray-900 rounded-lg overflow-hidden"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <img src={product.image} alt={product.name} className="w-full h-40 object-cover" />
+              <div className="p-4">
+                <h3 className="text-xl font-semibold">{product.name}</h3>
+                <p className="text-lg text-gray-400">{product.price}</p>
+                <div className="flex items-center mt-2">
+                  <Star className="w-5 h-5 text-yellow-400" />
+                  <span className="ml-2 text-lg">{product.rating}</span>
+                </div>
+                <motion.button
+                  className="mt-4 bg-black text-white py-2 px-4 rounded-lg"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => addToCart(product)}
+                >
+                  Add to Cart
+                </motion.button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
+      <section ref={fragranceLabRef} className="bg-gray-800 py-20">
+        <motion.div
+          className="container mx-auto px-4 flex flex-col items-center"
+          style={{ scale: labScale, opacity: labOpacity }}
+        >
+          <h2 className="text-4xl font-bold mb-10">Fragrance Lab</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {fragrances.map((fragrance) => (
+              <motion.div
+                key={fragrance.name}
+                className="flex flex-col items-center p-4 rounded-lg cursor-pointer"
+                onClick={() => toggleFragrance(fragrance.name)}
+                whileHover={{ scale: 1.1, rotate: rotateDroplets }}
+                whileTap={{ scale: 0.95 }}
+                style={{ backgroundColor: fragrance.color }}
+              >
+                <Droplet className="w-12 h-12 text-white mb-2" />
+                <span className="text-lg font-semibold text-white">{fragrance.name}</span>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-10">
+            <h3 className="text-2xl font-semibold mb-4">Selected Fragrances</h3>
+            <ul className="list-disc list-inside">
+              {selectedFragrances.map((fragrance) => (
+                <li key={fragrance} className="text-lg text-white">{fragrance}</li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+      </section>
+
+      <footer className="bg-gray-900 py-6">
+        <div className="container mx-auto px-4 text-center text-white">
+          <p>&copy; 2024 Da-chi Cosmetics. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  )
+}
