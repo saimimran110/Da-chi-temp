@@ -131,7 +131,86 @@ export default function UserDash() {
         />
 
         <main className="pt-16">
-       
+          <section id="home" className="py-20">
+            <div className="container mx-auto px-4">
+              <motion.div 
+                className="text-6xl md:text-7xl font-bold text-center mb-8 font-['Playfair_Display']"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+              >
+                <motion.span
+                  initial={{ x: -100, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="inline-block"
+                >
+                  D
+                </motion.span>
+                <motion.span
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  className="inline-block"
+                >
+                  a
+                </motion.span>
+                <motion.span
+                  initial={{ y: -50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  className="inline-block"
+                >
+                  -
+                </motion.span>
+                <motion.span
+                  initial={{ x: 100, opacity: 0, rotate: 180 }}
+                  animate={{ x: 0, opacity: 1, rotate: 0 }}
+                  transition={{ duration: 0.5, delay: 0.8 }}
+                  className="inline-block"
+                >
+                  c
+                </motion.span>
+                <motion.span
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 1 }}
+                  className="inline-block"
+                >
+                  h
+                </motion.span>
+                <motion.span
+                  initial={{ x: 100, opacity: 0, rotate: -180 }}
+                  animate={{ x: 0, opacity: 1, rotate: 0 }}
+                  transition={{ duration: 0.5, delay: 1.2 }}
+                  className="inline-block"
+                >
+                  i
+                </motion.span>
+              </motion.div>
+              <motion.p 
+                className="text-xl md:text-2xl text-center text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.5 }}
+              >
+                Discover our exquisite range of perfumes, deodorants, and lotions. Elevate your personal care routine with Da-chi.
+              </motion.p>
+              <motion.div
+                className="mt-8 flex justify-center"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.7 }}
+              >
+                <button 
+                  className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+                  onClick={scrollToCategories}
+                >
+                  Explore Our Collection
+                </button>
+              </motion.div>
+            </div>
+          </section>
 
           <section className="relative h-[80vh] overflow-hidden">
             {sliderImages.map((image, index) => (
