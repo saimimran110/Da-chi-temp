@@ -220,7 +220,7 @@ export default function UserDash() {
             <div className="container mx-auto px-4">
               <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 font-['Playfair_Display']">Trending Products</h2>
               
-              <div className="space-y-8">
+              <div className="space-y-16">
                 {Object.entries(trendingProducts).map(([category, products], categoryIndex) => (
                   <motion.div
                     key={category}
@@ -229,39 +229,37 @@ export default function UserDash() {
                     transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
                     viewport={{ once: true, amount: 0.3 }}
                   >
-                    <h3 className="text-3xl font-semibold mb-4 capitalize font-['Playfair_Display']">{category}</h3>
+                    <h3 className="text-3xl font-semibold mb-6 capitalize font-['Playfair_Display']">{category}</h3>
                     <div className="relative">
                       <div 
                         ref={el => scrollContainerRefs.current[category] = el}
-                        className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide -mx-4 px-4"
-                        style={{ scrollSnapType: 'x mandatory' }}
+                        className="flex overflow-x-auto space-x-6 pb-4 scrollbar-hide"
                       >
                         {products.map((product, index) => (
                           <motion.div
                             key={product.id}
-                            className="flex-shrink-0 w-48 sm:w-56 md:w-72 bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-xl cursor-pointer"
-                            style={{ scrollSnapAlign: 'start' }}
-                            whileHover={{ scale: 1.02 }}
+                            className="flex-shrink-0 w-72 md:w-80 bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-xl cursor-pointer"
+                            whileHover={{ scale: 1.05 }}
                             initial={{ opacity: 0, x: 50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true, amount: 0.3 }}
                             onClick={() => handleProductClick(product)}
                           >
-                            <div className="relative h-40 sm:h-48 md:h-64 w-full">
+                            <div className="relative h-64 w-full">
                               <img
                                 src={product.image}
                                 alt={product.name}
                                 className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                               />
                             </div>
-                            <div className="p-3 md:p-4 bg-white dark:bg-gray-700">
-                              <h4 className="text-sm md:text-lg font-semibold mb-1 md:mb-2 truncate">{product.name}</h4>
-                              <div className="flex justify-between items-center">
-                                <p className="text-gray-600 dark:text-gray-300 font-bold text-sm md:text-base">{product.price}</p>
+                            <div className="p-4 bg-white dark:bg-gray-700">
+                              <h4 className="text-lg font-semibold mb-2">{product.name}</h4>
+                              <div className="flex justify-between items-center mb-2">
+                                <p className="text-gray-600 dark:text-gray-300 font-bold">{product.price}</p>
                                 <div className="flex items-center">
-                                  <Star className="w-3 h-3 md:w-4 md:h-4 text-yellow-400 mr-1" />
-                                  <span className="text-xs md:text-sm text-gray-600 dark:text-gray-300">{product.rating}</span>
+                                  <Star className="w-4 h-4 text-yellow-400 mr-1" />
+                                  <span className="text-sm text-gray-600 dark:text-gray-300">{product.rating}</span>
                                 </div>
                               </div>
                             </div>
@@ -270,13 +268,13 @@ export default function UserDash() {
                       </div>
                       <button 
                         onClick={() => scroll('left', category)} 
-                        className="hidden md:block absolute top-1/2 -left-4 transform -translate-y-1/2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                        className="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                       >
                         <ChevronLeft className="w-6 h-6" />
                       </button>
                       <button 
                         onClick={() => scroll('right', category)}
-                        className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                        className="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                       >
                         <ChevronRight className="w-6 h-6" />
                       </button>
@@ -286,6 +284,7 @@ export default function UserDash() {
               </div>
             </div>
           </motion.section>
+
           <motion.section
             id="about"
             className="py-20 bg-white dark:bg-gray-900"
