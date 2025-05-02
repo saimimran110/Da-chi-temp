@@ -54,6 +54,12 @@ const PerfumePage = () => {
     
   };
 
+  React.useEffect(() => {
+   
+    window.scrollTo(0, 0);
+    
+  }, []);
+
   const handleLinkClick = (href) => {
     if (href.startsWith('#')) {
       const section = document.querySelector(href);

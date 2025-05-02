@@ -56,7 +56,7 @@ const Cart = () => {
     const templateParams = {
       name: userInfo.name,
       message: `
-        Order Details:
+        Order Details:q
         ${itemsMessage}
         
         Total Price: Rs ${calculateTotal(selectedItems)}

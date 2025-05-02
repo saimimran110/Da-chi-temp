@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import emailjs from 'emailjs-com';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -9,6 +9,7 @@ import { useCart } from '../contexts/CartContext';
 import logo from '../assets/logo.jpg';
 import LoadingSpinner from '../components/spinner.jsx'; // Import custom loading spinner
 import SuccessAlert from '../components/OrderPlacedSuccessfully.jsx'; // Import SuccessAlert component
+import AnimatedAddToCartButton from '../components/AnimatedAddToCartButton.tsx'; // Import AnimatedAddToCartButton
 
 const quickLinks = [
   { name: 'Home', href: '/' },
@@ -32,7 +33,9 @@ const ProductCardPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { addToCart } = useCart();
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const product = location.state?.product || {
     id: 'default-product',
     name: 'Product Name',
@@ -45,11 +48,7 @@ const ProductCardPage = () => {
   const handleAddToCart = () => {
     setAddingToCart(true);
     addToCart(product);
-    setTimeout(() => {
-      setAddingToCart(false);
-      setShowAddToCartAlert(true); // Show success alert
-      setTimeout(() => setShowAddToCartAlert(false), 3000); // Hide alert after 3 seconds
-    }, 1000);
+  
   };
 
   const handleLinkClick = (href) => {
@@ -147,20 +146,15 @@ const ProductCardPage = () => {
             <p className="text-2xl font-semibold mb-4">Rs {product.price}</p>
             <p className="text-gray-600 mb-6">{product.description}</p>
             <div className="flex space-x-4">
-              <motion.button
+              <AnimatedAddToCartButton
                 onClick={handleAddToCart}
-                disabled={addingToCart}
-                className={`flex items-center justify-center px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors ${
-                  addingToCart ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
-                whileTap={{ scale: 0.95 }}
-              >
-                <ShoppingCart className="mr-2 h-5 w-5" />
-                {addingToCart ? 'Adding...' : 'Add to Cart'}
-              </motion.button>
+                className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                style={{ maxWidth: '150px' }} // Adjust the size here
+              />
               <motion.button
                 onClick={() => setShowModal(true)}
-                className="px-6 py-3 bg-white text-black border-2 border-black rounded-lg hover:bg-gray-100 transition-colors"
+                className="bg-white text-black border-2 border-black rounded-lg hover:bg-gray-100 transition-colors"
+                style={{ maxWidth: '150px', padding: '0.5rem 1rem' }} // Adjust the size here
                 whileTap={{ scale: 0.95 }}
               >
                 Buy Now

@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserDashboard from './pages/userDash.jsx';
-import ProductCardPage from './pages/product-card-page.jsx'; // Your ProductCardPage component
+import ProductCardPage from './pages/product-card-page.jsx'; 
 import './index.css'; 
-import CartPage from './pages/cart-page.tsx';
+import CartPage from './pages/cart-page';
 import { CartProvider } from './contexts/CartContext';
 import PerfumePage from './pages/PerfumePage.tsx'
 import LotionCardPage from './pages/lotion-page.tsx'
@@ -14,7 +14,6 @@ function App() {
     <CartProvider>
     <Router>
     <div className="App">
- 
       <Routes>
         <Route path="/" element={<UserDashboard />} />
         <Route path="/product" element={<ProductCardPage />} />

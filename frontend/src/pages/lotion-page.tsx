@@ -7,9 +7,9 @@ import { useCart } from '../contexts/CartContext.js';
 import AnimatedAddToCartButton from '../components/AnimatedAddToCartButton.tsx'; // Import AnimatedAddToCartButton
 import HydraAloe from '../assets/HydraAloe.jpg';
 import sheaButter from '../assets/sheaButter.jpg';
-
+import logo from '../assets/logo.jpg';
 const lotions = [
-  { id: 1, name: 'Coconut Dream', price: 200, image: '/placeholder.svg?height=300&width=300', rating: 4.8 },
+  { id: 1, name: 'Coconut Dream', price: 200, image: sheaButter, rating: 4.8 },
   { id: 2, name: 'Shea Butter Moisture', price: 220, image: sheaButter, rating: 4.5 },
   { id: 3, name: 'HydraAloe', price: 190, image: HydraAloe, rating: 4.6 },
 ];
@@ -51,7 +51,7 @@ const LotionCategoryPage = () => {
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-amber-100 text-gray-900 font-sans">
       {showHeader && (
         <Header
-          logo="/placeholder.svg?height=50&width=50"
+          logo={logo}
           brandName="Da-chi"
           links={quickLinks}
           onLinkClick={handleLinkClick}
